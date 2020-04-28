@@ -33,3 +33,16 @@
   user:
     name: "{{ ansible_user }}"
     shell: /bin/zsh
+
+- name: Install tmux package
+  apt:
+    state: present
+    name: tmux
+
+- name: Copy tmux dot-config
+  copy:
+    src: .tmux.conf
+    dest: "/home/{{ ansible_user }}/.tmux.conf"
+  become: yes
+  become_user: "{{ ansible_user }}"
+

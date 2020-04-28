@@ -1,6 +1,6 @@
 galaxy_info:
   author: Shane Grech
-  description: Ansible role to provision zsh and zsh-nvm plugin on debian based distributions
+  description: Ansible role to provision zsh and zsh-nvm plugin, as well as tmux, on debian based distributions
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
