@@ -1,2 +1,35 @@
 ---
-# tasks file for role_zsh
+- name: Install zsh package
+  apt:
+    state: present
+    name: zsh
+
+- name: Download oh my zsh
+  get_url:
+    url: "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+    dest: "/tmp/zsh-install.sh"
+    mode: 0755
+
+- name: Install oh my zsh
+  command: "/tmp/zsh-install.sh --unattended --keep-zshrc"
+  args:
+    creates: "/home/{{ ansible_user }}/.oh-my-zsh"
+  become: yes
+  become_user: "{{ ansible_user }}"
+
+- name: Install zsh nvm plugin
+  git:
+    repo: https://github.com/lukechilds/zsh-nvm
+    dest: "/home/{{ ansible_user }}/.oh-my-zsh/custom/plugins/zsh-nvm"
+  tags:
+    - skip_ansible_lint
+
+- name: Copy zsh dot-config
+  copy:
+    src: .zshrc
+    dest: "/home/{{ ansible_user }}/.zshrc"
+
+- name: Set default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
