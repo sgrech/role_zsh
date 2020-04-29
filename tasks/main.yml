@@ -2,7 +2,9 @@
 - name: Install zsh package
   apt:
     state: present
-    name: zsh
+    name:
+      - zsh
+      - git
 
 - name: Download oh my zsh
   get_url:
